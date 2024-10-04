@@ -244,6 +244,8 @@ require('lazy').setup({
 
   -- "gc" to comment visual regions/lines
   { 'numToStr/Comment.nvim', opts = {} },
+  { 'theHamsta/nvim-dap-virtual-text', opts = {} },
+  { 'rcarriga/nvim-dap-ui', dependencies = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } },
   { 'folke/trouble.nvim', opts = {}, keys = {
     { '<leader>t', '<cmd>Trouble toggle diagnostics<cr>', desc = 'Toggle [T]rouble' },
   } },
