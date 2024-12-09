@@ -668,7 +668,16 @@ require('lazy').setup({
                 callSnippet = 'Replace',
               },
               -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-              -- diagnostics = { disable = { 'missing-fields' } },
+              diagnostics = { disable = { 'missing-fields' } },
+            },
+          },
+        },
+        ols = {
+          filetypes = { 'odin' },
+          settings = {
+            checker_args = '-strict-style',
+            collections = {
+              { name = 'shared', path = vim.fn.expand '$HOME/bin/odin/shared' },
             },
           },
         },
@@ -720,12 +729,12 @@ require('lazy').setup({
       },
     },
     opts = {
-      notify_on_error = false,
+      notify_on_error = true,
       format_on_save = function(bufnr)
-        -- Disable "format_on_save lsp_fallback" for languages that don't
+        -- Disable "" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = {}
         local lsp_format_opt
         if disable_filetypes[vim.bo[bufnr].filetype] then
           lsp_format_opt = 'never'
@@ -741,6 +750,7 @@ require('lazy').setup({
         lua = { 'stylua' },
         go = { 'gofmt' },
         cpp = { 'clang-format' },
+        c = { 'clang-format' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
@@ -1010,6 +1020,13 @@ require('lazy').setup({
       lazy = '💤 ',
     },
   },
+})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = { '*.odin' },
+  callback = function()
+    vim.lsp.buf.format()
+  end,
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
