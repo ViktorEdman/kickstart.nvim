@@ -92,6 +92,7 @@ vim.g.maplocalleader = ' '
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
+vim.g.terminal_emulator = 'kitty'
 
 -- [[ Setting options ]]
 -- See `:help vim.opt`
@@ -288,6 +289,9 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
     },
+  },
+  {
+    'AckslD/swenv.nvim',
   },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
